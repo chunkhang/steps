@@ -10,7 +10,7 @@ def getChoice(numbers, choices, prompt='\nEnter choice: ', error='Invalid choice
 	assert all(type(number) == int for number in numbers), 'Numbers must be integer.'
 	assert all(type(choice) == str for choice in choices), 'Choices must be string.'
 	for i in range(len(numbers)):
-		print('(%s) %s' % (numbers[i], choices[i]))
+		print('[%s] %s' % (numbers[i], choices[i]))
 	while True:
 		choice = input(prompt)
 		try:

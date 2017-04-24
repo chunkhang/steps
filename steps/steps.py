@@ -1,3 +1,4 @@
+from sys import exit
 from steps.console import *
 
 
@@ -9,7 +10,7 @@ TITLE = '''
 | \____) |   _| |_    _| |__/ | _| |_    | \____) | 
  \______.'  |_____|  |________||_____|    \______.' 
 '''
-SUBTITLE = 'A console application for tracking the progress of curbing bad habits'
+SUBTITLE = 'A journey is simply a multitude of steps'
 VERSION = '1.0.0'
 WEBSITE = 'github.com/chunkhang/steps'
 AUTHOR = 'MARCUS MU'
@@ -20,9 +21,23 @@ SUBTITLE_LENGTH = 42
 
 
 def main():
+
+	# Introduction
 	printIntro()
-	printCenteredHeader('Hello', APP_LENGTH)
-	print('h')
+
+	while True:
+
+		# Journeys
+		printCenteredHeader('Journeys', APP_LENGTH)
+		print(centerAlign('You have not started any journey', APP_LENGTH))
+		print()
+
+		# Prompt choice
+		print()
+		choice = getChoice([0, 1], ['Start a journey', 'Exit'])
+
+		if choice == 1:
+			exitApplication()
 
 
 def printIntro():
@@ -47,14 +62,13 @@ def printCenteredHeader(header, width):
 	print(centerAlign(string, width))
 	print()
 
+def exitApplication():
+	'''
+	Exit application after printing divider
+	'''
+	printDivider(APP_LENGTH, character='=')
+	exit(0)
+
 
 if __name__ == '__main__':
 	main()
-
-
-
-
-
-
-
-

@@ -1,3 +1,6 @@
+import os
+import time
+import shelve
 from sys import exit
 from steps.console import *
 
@@ -15,7 +18,8 @@ VERSION = '1.0.0'
 WEBSITE = 'github.com/chunkhang/steps'
 AUTHOR = 'MARCUS MU'
 EMAIL = 'chunkhang@gmail.com'
-APP_LENGTH = 60
+DATA_FILE = '.data'
+APP_LENGTH = 54
 TITLE_LENGTH = 51
 SUBTITLE_LENGTH = 42
 
@@ -25,19 +29,69 @@ def main():
 	# Introduction
 	printIntro()
 
+	# Change working directory to script's location
+	scriptPath = os.path.realpath(__file__)
+	scriptDir = os.path.dirname(scriptPath)
+	os.chdir(scriptDir)
+
 	while True:
 
-		# Journeys
-		printCenteredHeader('Journeys', APP_LENGTH)
-		print(centerAlign('You have not started any journey', APP_LENGTH))
-		print()
+		with shelve.open(DATA_FILE) as shelf:
 
-		# Prompt choice
-		print()
-		choice = getChoice([0, 1], ['Start a journey', 'Exit'])
+			# Get keys from shelf
+			keys = shelf.keys()
+			if len(keys) == 0:
+				hasData = False
+			else:
+				hasData = True
 
-		if choice == 1:
-			exitApplication()
+			# Journeys
+			printCenteredHeader('Journeys', APP_LENGTH)
+			if hasData:
+				for key in keys:
+					print('%s: %s' % (key, shelf[key]))
+			else:
+				print(centerAlign('No journey found', APP_LENGTH))
+			print()
+
+			# Choices
+			print()
+			options = ['Add']
+			if hasData:
+				options.extend(['Info', 'Edit', 'Delete', 'Clear'])
+			options.append('Exit')
+			choice = getChoiceRows(options, 3)
+			printDivider(APP_LENGTH, character='=')
+			print()
+
+			# Operations
+			if choice == 0:
+				# Add a journey
+				print('Add a journey!')
+				k = getQuery('key: ')
+				v = getQuery('value: ')
+				shelf[k] = v
+				continue
+			if hasData:
+				if choice == 1:
+					# Display information of journey
+					print('Display info...')
+				elif choice == 2:
+					# Edit a journey
+					print('Edit journey...')
+				elif choice == 3:
+					# Delete a journey
+					print('Delete journey...')
+				elif choice == 4:
+					# Clear all journeys
+					for key in keys:
+						del shelf[key]
+				else:
+					# Exit application
+					exit(0)
+			else:
+				# Exit application
+				exit(0)
 
 
 def printIntro():
@@ -62,13 +116,37 @@ def printCenteredHeader(header, width):
 	print(centerAlign(string, width))
 	print()
 
-def exitApplication():
+def getChoiceRows(options, numberOfRows):
 	'''
-	Exit application after printing divider
+	Return user choice after prompting with given rows of options
 	'''
-	printDivider(APP_LENGTH, character='=')
-	exit(0)
+	strings = []
+	for i in range(len(options)):
+		strings.append('[%s] %s' % (i, options[i]))
+	columns = []
+	for i in range(0, len(options), numberOfRows):
+		columns.append(strings[i:i+numberOfRows])
+	rows = []
+	for i in range(len(columns[0])):
+		row = ''
+		for j in range(len(columns)):
+			try:
+				row += columns[j][i] 
+			except IndexError:
+				pass
+			row += '  \t'
+		rows.append(row)
+	for r in rows:
+		print(r)
+	while True:
+		choice = input('\nEnter choice: ')
+		if choice not in map(lambda n: str(n), range(len(options))):
+			print('Invalid choice.')
+		else:
+			break
+	return int(choice)
 
 
 if __name__ == '__main__':
 	main()
+

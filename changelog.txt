@@ -1,0 +1,14 @@
+Create Source Distribution:
+python3 setup.py sdist
+
+Build Python Wheel:
+python3 setup.py bdist_wheel
+
+Upload to PyPI:
+twine upload [-r testpypi] <dist/package.whl>
+
+Create Git Tag (For Releases):
+git tag <version>
+git push origin <version>
+
+------------------------------------------------------

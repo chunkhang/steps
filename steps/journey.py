@@ -5,7 +5,7 @@ from copy import deepcopy
 
 def list(journeys):
 	'''
-	List journeys with name and goal progress
+	Return string of journeys with name and goal progress
 	'''
 	string = ''
 	for i in range(len(journeys)):
@@ -20,9 +20,45 @@ def list(journeys):
 			string += '\n'
 	return string
 
+def details(journeys, index):
+	'''
+	Return string of journey details
+	'''
+	journey = journeys[index]
+	name = journey['name']
+	start = journey['start']
+	startDate, startTime = calculate.timestamp(start)
+	goal = journey['goal']
+	steps = calculate.steps(start)
+	now = calculate.now()
+	nowDate, nowTime = calculate.timestamp(now)
+	percentage = calculate.percentage(steps, goal)
+	string = 'JOURNEY\n'
+	string += '-------\n'
+	string += '%s\n' % name
+	string += '\n'
+	string += 'START\n'
+	string += '-----\n'
+	string += '%s\n' % startDate 
+	string += '%s\n' % startTime
+	string += '\n'
+	string += 'TODAY\n'
+	string += '-----\n'
+	string += '%s\n' % nowDate
+	string += '%s\n' % nowTime
+	string += '\n'
+	string += 'STEPS\n'
+	string += '-----\n'
+	string += '%s out of %s\n' % (steps, goal)
+	string += '\n'
+	string += 'PROGRESS\n'
+	string += '--------\n'
+	string += '%s %%' % percentage
+	return string
+
 def add(journeys, name, goal):
 	'''
-	Add journey to list of journeys
+	Return list of journeys with added journey
 	'''
 	journey = {
 		'name': name[0].upper() + name[1:],
@@ -35,7 +71,7 @@ def add(journeys, name, goal):
 
 def clear():
 	'''
-	Clear all journeys
+	Return empty list
 	'''
 	return []
 

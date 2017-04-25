@@ -1,5 +1,7 @@
 def left(text, width):
-	''' Return a string left-aligned within the given width '''
+	''' 
+	Return a string left-aligned within the given width 
+	'''
 	words = text.split()
 	# Check longest word against width
 	longestWord = ''
@@ -28,20 +30,34 @@ def left(text, width):
 	return string
 
 def center(text, width):
-	''' Return a string centered-aligned within the given width '''
+	''' 
+	Return a string centered-aligned within the given width 
+	'''
 	leftAlignedText = left(text, width)
 	lines = leftAlignedText.split('\n')
 	centeredLines = list(map(lambda line: line.center(width), lines))
 	return '\n'.join(centeredLines)
 
+def centerBreak(text, width):
+	'''
+	Return a string centered-aligned obeying newline breaks within the given width
+	'''
+	lines = text.split('\n')
+	centeredBreakLines = map(lambda line: center(line, width), lines)
+	return '\n'.join(centeredBreakLines)
+
 def leftRight(left, right, width):
-	''' Return a string that left aligns left and right aligns right within the given width'''
+	''' 
+	Return a string that left aligns left and right aligns right within the given width
+	'''
 	length = width - len(left) - len(right)
 	string = '%s%s%s' % (left, ' '*length, right)
 	return string
 
 def leftPad(text, padding):
-	''' Return a string left-padded with the given padding '''
+	''' 
+	Return a string left-padded with the given padding 
+	'''
 	lines = text.split('\n')
-	paddedLines = (map(lambda line: ' '*padding + line, lines))
+	paddedLines = map(lambda line: ' '*padding + line, lines)
 	return '\n'.join(paddedLines)

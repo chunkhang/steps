@@ -1,3 +1,5 @@
+from console import align
+
 def choice(numbers, choices, prompt='\nEnter choice: ', error='Invalid choice.'):
 	'''
 	Prompt user for choice
@@ -74,5 +76,13 @@ def yesOrNo(prompt='\nEnter response (Y/N) ', error='Invalid response.'):
 			print(error)
 
 def enter(action='continue'):
-	''' Prompt user to hit enter '''
+	''' 
+	Prompt user to hit enter 
+	'''
 	input('[Hit enter to %s]' % action)
+
+def enterCenter(width, action='continue'):
+	'''
+	Prompt user to hit enter with a centered text within the given width
+	'''
+	input(align.center('[Hit enter to %s]' % action, width))

@@ -1,7 +1,7 @@
 .DS_Store
 .data
 test/
-requirements.txt
+scratchpad.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

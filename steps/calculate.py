@@ -35,4 +35,9 @@ def percentage(start, goal):
 	'''
 	progress = int(now() - start)
 	total = seconds(goal)
-	return round(progress/total * 100, 1)
+	percent = round(progress/total * 100, 1)
+	if percent <= 100.0:
+		return percent
+	else:
+		return 100.0
+

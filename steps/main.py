@@ -73,6 +73,7 @@ def main():
 				name = input('Enter journey name: ')
 				if name.split() != []:
 					# Validate goal steps
+					cancel = False
 					while True:
 						goal = input('Enter goal steps: ')
 						try:
@@ -81,8 +82,12 @@ def main():
 								raise ValueError
 							break
 						except ValueError:
+							if goal.split() == []:
+								cancel = True
+								break
 							print('Invalid response.')
-					journeys = journey.add(journeys, name, goal)
+					if not cancel:
+						journeys = journey.add(journeys, name, goal)
 			else:
 				print('Too many journeys!')
 			continue

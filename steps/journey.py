@@ -32,7 +32,7 @@ def details(journeys, index):
 	steps = calculate.steps(start)
 	now = calculate.now()
 	nowDate, nowTime = calculate.timestamp(now)
-	percentage = calculate.percentage(steps, goal)
+	percentage = calculate.percentage(start, goal)
 	string = 'JOURNEY\n'
 	string += '-------\n'
 	string += '%s\n' % name

@@ -2,7 +2,7 @@ import time
 
 def now():
 	'''
-	Return current timestamp
+	Return current time in seconds
 	'''
 	return time.time()
 
@@ -14,6 +14,12 @@ def steps(start):
 	days = int(seconds // 60 // 60 // 24)
 	return days
 
+def seconds(steps):
+	'''
+	Return steps converted to seconds
+	'''
+	return steps * 24 * 60 * 60
+
 def timestamp(t):
 	''' 
 	Return a tuple of formatted string of structured time 
@@ -23,8 +29,10 @@ def timestamp(t):
 	_time = time.strftime("%I:%M %p", structuredTime)
 	return (date, _time)
 
-def percentage(x, y):
+def percentage(start, goal):
 	'''
-	Return percentage of x over y
+	Return percentage of completion
 	'''
-	return round(x/y * 100, 1)
+	progress = int(now() - start)
+	total = seconds(goal)
+	return round(progress/total * 100, 1)

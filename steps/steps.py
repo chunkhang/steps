@@ -2,7 +2,7 @@ import os
 import time
 import shelve
 from sys import exit
-from steps import journey, calculate
+from steps import journey
 from steps.intro import *
 from steps.constants import *
 from console import prompt, put, align

@@ -1,4 +1,4 @@
-from console.align import *
+from steps.console.align import *
 
 def title(title, width, character='*', padding=1):
 	''' Print a decorated title '''

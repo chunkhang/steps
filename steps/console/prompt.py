@@ -1,4 +1,4 @@
-from console import align
+from steps.console import align
 
 def choice(numbers, choices, prompt='\nEnter choice: ', error='Invalid choice.'):
 	'''

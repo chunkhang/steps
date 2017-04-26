@@ -1,6 +1,6 @@
 from steps import calculate
 from steps.constants import *
-from console import align
+from steps.console import align
 from copy import deepcopy
 
 def list(journeys):

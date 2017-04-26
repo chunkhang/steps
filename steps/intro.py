@@ -1,4 +1,4 @@
-from console import align
+from steps.console import align
 from steps.constants import *
 
 def printIntro():

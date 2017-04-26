@@ -5,20 +5,15 @@ from copy import deepcopy
 
 def list(journeys):
 	'''
-	Return string of journeys with name and goal progress
+	Return a tuple of two lists of strings for name and steps respectively
 	'''
-	string = ''
+	left = []
+	right = []
 	for i in range(len(journeys)):
 		journey = journeys[i]
-		journey = align.leftRight(
-			'(%s) %s' % (ALPHABETS[i], journeys[i]['name']),
-			'%s / %s steps' % (calculate.steps(journey['start']), journeys[i]['goal']), 
-			APP_LENGTH
-		)
-		string += journey 
-		if i != len(journeys)-1:
-			string += '\n'
-	return string
+		left.append('(%s) %s' % (ALPHABETS[i], journeys[i]['name']))
+		right.append('%s / %s steps' % (calculate.steps(journey['start']), journeys[i]['goal']))
+	return (left, right)
 
 def details(journeys, index):
 	'''

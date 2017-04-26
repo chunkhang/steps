@@ -45,7 +45,13 @@ def main():
 		put.headerCenter('Journeys', APP_LENGTH)
 		if hasData:
 			# List journeys
-			print(journey.list(journeys))
+			names, steps = journey.list(journeys)
+			list = ''
+			for i in range(len(names)):
+				list += align.leftRight(names[i], steps[i], APP_LENGTH)
+				if i != len(names)-1:
+					list += '\n'
+			print(list)
 		else:
 			print(align.center('No journey found!', APP_LENGTH))
 		print()

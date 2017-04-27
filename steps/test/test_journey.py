@@ -4,7 +4,7 @@ from copy import deepcopy
 from steps import journey
 
 
-def test_list():
+class Mock:
 	journeys = [
 		{
 			'name': 'First',
@@ -17,28 +17,19 @@ def test_list():
 			'goal': 200
 		}
 	]
-	original = deepcopy(journeys)
-	list = journey.list(journeys)
+
+
+def test_list():
+	original = deepcopy(Mock.journeys)
+	list = journey.list(Mock.journeys)
 	left, right = list
 	assert left == ['(A) First', '(B) Second']
 	assert right == ['1 / 100 steps', '1 / 200 steps']
-	assert journeys == original
+	assert Mock.journeys == original
 
 def test_details():
-	journeys = [
-		{
-			'name': 'First',
-			'start': t(2017, 4, 25, 16, 0),
-			'goal': 100
-		},
-		{
-			'name': 'Second',
-			'start': t(2017, 4, 25, 16, 0),
-			'goal': 200
-		}
-	]
-	original = deepcopy(journeys)
-	assert journey.details(journeys, 0) == \
+	original = deepcopy(Mock.journeys)
+	assert journey.details(Mock.journeys, 0) == \
 '''\
 JOURNEY
 -------
@@ -62,7 +53,7 @@ PROGRESS
 --------
 1.0 %\
 '''
-	assert journey.details(journeys, 1) == \
+	assert journey.details(Mock.journeys, 1) == \
 '''\
 JOURNEY
 -------
@@ -86,25 +77,13 @@ PROGRESS
 --------
 0.5 %\
 '''
-	assert journeys == original
+	assert Mock.journeys == original
 
 def test_add():
-	journeys = [
-		{
-			'name': 'First',
-			'start': t(2017, 4, 25, 16, 0),
-			'goal': 100
-		},
-		{
-			'name': 'Second',
-			'start': t(2017, 4, 25, 16, 0),
-			'goal': 200
-		}
-	]
-	original = deepcopy(journeys)
-	journey.add(journeys, 'Third', 300)
-	assert journeys == original
-	assert journey.add(journeys, 'Third', 300) == [
+	original = deepcopy(Mock.journeys)
+	journey.add(Mock.journeys, 'Third', 300)
+	assert Mock.journeys == original
+	assert journey.add(Mock.journeys, 'Third', 300) == [
 		{
 			'name': 'First',
 			'start': t(2017, 4, 25, 16, 0),
@@ -123,19 +102,7 @@ def test_add():
 	]
 
 def test_clear():
-	journeys = [
-		{
-			'name': 'First',
-			'start': t(2017, 4, 25, 16, 0),
-			'goal': 100
-		},
-		{
-			'name': 'Second',
-			'start': t(2017, 4, 25, 16, 0),
-			'goal': 200
-		}
-	]
-	original = deepcopy(journeys)
+	original = deepcopy(Mock.journeys)
 	journey.clear()	
-	assert journeys == original
+	assert Mock.journeys == original
 	assert journey.clear() == []
